@@ -17,7 +17,7 @@ class CoursesApp : Application() {
                 authModule,
                 networkModule,
                 repositoryModule,
-                coursesModule
+                coursesModule,
                 // , другие модули…
             )
         }

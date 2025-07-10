@@ -19,12 +19,12 @@ class CoursesViewModel(private val repo: CoursesRepository) : ViewModel() {
 
     init {
         viewModelScope.launch {
-            runCatching { repo.fetchCourses() }
+            runCatching { repo.getCourses() }
                 .onSuccess { list ->
                     _uiState.value = CoursesUiState(courses = list)
                 }
                 .onFailure { e ->
-                    _uiState.value = CoursesUiState(error = e.message)
+                    _uiState.value = CoursesUiState(error = e.localizedMessage)
                 }
         }
     }

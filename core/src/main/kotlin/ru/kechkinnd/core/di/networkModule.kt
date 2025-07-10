@@ -1,19 +1,16 @@
 package ru.kechkinnd.core.di
 
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
-import kotlinx.serialization.json.Json
-import okhttp3.MediaType.Companion.toMediaType
 import org.koin.dsl.module
 import retrofit2.Retrofit
-import ru.kechkinnd.core.network.api.CoursesApi
+import retrofit2.converter.gson.GsonConverterFactory
+import ru.kechkinnd.core.network.api.CourseApi
 
 val networkModule = module {
     single {
-        val contentType = "application/json".toMediaType()
         Retrofit.Builder()
-            .baseUrl("https://your.api.mock/") // замените на ваш базовый URL
-            .addConverterFactory(Json { ignoreUnknownKeys = true }.asConverterFactory(contentType))
+            .baseUrl("https://drive.usercontent.google.com/")
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
+            .create(CourseApi::class.java)
     }
-    single { get<Retrofit>().create(CoursesApi::class.java) }
 }

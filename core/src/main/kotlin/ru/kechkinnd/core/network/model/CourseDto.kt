@@ -5,8 +5,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CourseDto(
-    @SerialName("id") val id: String,
-    @SerialName("title") val title: String,
-    @SerialName("description") val description: String,
-    @SerialName("imageUrl") val imageUrl: String,
+    val id: Int,
+    val title: String,
+    @SerialName("text") val text: String,
+    val price: String,
+    val rate: String,
+    val startDate: String,
+    val hasLike: Boolean,
+    val publishDate: String
 )

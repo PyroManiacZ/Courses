@@ -47,10 +47,17 @@ dependencies {
     implementation(libs.androidx.compose.ui.ui.tooling.preview2)
     debugImplementation(libs.androidx.compose.ui.ui.tooling2)
 
-    implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx.v261)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-
+    implementation(libs.coil.compose)
     implementation(libs.koin.android)
     implementation(libs.koin.androidx.compose.v353)
+    implementation(libs.androidx.material.icons.extended)
+    implementation(libs.androidx.foundation)
+    implementation(libs.androidx.ui.util)
+
+    implementation(libs.androidx.material3.v130)
+    implementation(libs.androidx.material3.window.size.class1)
+    implementation(libs.androidx.navigation.compose.v277)
+
 }

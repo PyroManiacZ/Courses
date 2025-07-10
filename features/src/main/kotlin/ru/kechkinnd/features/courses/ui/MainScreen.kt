@@ -10,7 +10,14 @@ import androidx.compose.material.icons.filled.*
 import ru.kechkinnd.features.courses.data.AccountScreen
 import ru.kechkinnd.features.courses.data.CoursesScreen
 import ru.kechkinnd.features.courses.data.FavoritesScreen
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.material.icons.filled.FilterList
 
+
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
@@ -24,6 +31,25 @@ fun MainScreen() {
     var selectedTab by remember { mutableStateOf("courses") }
 
     Scaffold(
+        topBar = {
+            CenterAlignedTopAppBar(
+                title = {
+                    TextField(
+                        value = "",
+                        onValueChange = {},
+                        placeholder = { Text("Поиск курса") },
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth(0.85f)
+                    )
+                },
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
+                actions = {
+                    IconButton(onClick = {}) {
+                        Icon(Icons.Default.FilterList, contentDescription = "Фильтр")
+                    }
+                }
+            )
+        },
         bottomBar = {
             NavigationBar {
                 tabs.forEach { tab ->
@@ -34,7 +60,6 @@ fun MainScreen() {
                         onClick = {
                             selectedTab = tab.route
                             navController.navigate(tab.route) {
-                                // Сохраняем состояние и избегаем дублирования
                                 popUpTo(navController.graph.startDestinationId) {
                                     saveState = true
                                 }
@@ -46,7 +71,8 @@ fun MainScreen() {
                 }
             }
         }
-    ) { padding ->
+    )
+    { padding ->
         NavHost(
             navController = navController,
             startDestination = "courses",

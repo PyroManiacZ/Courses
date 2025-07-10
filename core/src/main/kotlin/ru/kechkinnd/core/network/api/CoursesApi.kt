@@ -1,9 +1,9 @@
 package ru.kechkinnd.core.network.api
 
 import retrofit2.http.GET
-import ru.kechkinnd.core.network.model.CourseDto
+import ru.kechkinnd.core.network.model.CoursesResponse
 
-interface CoursesApi {
-    @GET("courses") // для мокового эндпоинта, например /courses.json
-    suspend fun getCourses(): List<CourseDto>
+interface CourseApi {
+    @GET("u/0/uc?id=15arTK7XT2b7Yv4BJsmDctA4Hg-BbS8-q&export=download")
+    suspend fun getCourses(): CoursesResponse
 }
