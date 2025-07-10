@@ -1,51 +1,96 @@
 package ru.kechkinnd.features.courses.ui
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.*
-import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import ru.kechkinnd.features.courses.data.AccountScreen
 import ru.kechkinnd.features.courses.data.CoursesScreen
-import ru.kechkinnd.features.courses.data.FavoritesScreen
+import ru.kechkinnd.features.favorites.ui.FavoritesScreen
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Sort
 import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.material.icons.filled.FilterList
+import org.koin.androidx.compose.koinViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen() {
-    val navController = rememberNavController()
+    val viewModel: CoursesViewModel = koinViewModel()
+    val query by viewModel.searchQuery.collectAsState()
+    val sortKey by viewModel.sortKey.collectAsState()
 
-    // Определяем табы: route + иконка + лейбл
+    val navController = rememberNavController()
+    var selectedTab by remember { mutableStateOf("courses") }
+
     val tabs = listOf(
         TabItem("courses", Icons.Default.Home, "Курсы"),
         TabItem("favorites", Icons.Default.Favorite, "Избранное"),
         TabItem("account", Icons.Default.Person, "Профиль")
     )
-    var selectedTab by remember { mutableStateOf("courses") }
+    var showMenu by remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
                     TextField(
-                        value = "",
-                        onValueChange = {},
+                        value = query,
+                        onValueChange = viewModel::onSearchChange,
                         placeholder = { Text("Поиск курса") },
                         singleLine = true,
                         modifier = Modifier.fillMaxWidth(0.85f)
                     )
                 },
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
                 actions = {
-                    IconButton(onClick = {}) {
-                        Icon(Icons.Default.FilterList, contentDescription = "Фильтр")
+                    // Кнопка сортировки
+                    Box {
+                        IconButton(onClick = { showMenu = true }) {
+                            Icon(Icons.AutoMirrored.Filled.Sort, contentDescription = "Сортировка")
+                        }
+                        DropdownMenu(
+                            expanded = showMenu,
+                            onDismissRequest = { showMenu = false }
+                        ) {
+                            DropdownMenuItem(
+                                text = { Text("По дате") },
+                                onClick = {
+                                    viewModel.onSortChange(CoursesViewModel.SortKey.DATE)
+                                    showMenu = false
+                                },
+                                leadingIcon = {
+                                    if (sortKey == CoursesViewModel.SortKey.DATE)
+                                        Icon(Icons.Default.Check, contentDescription = null)
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text("По цене") },
+                                onClick = {
+                                    viewModel.onSortChange(CoursesViewModel.SortKey.PRICE)
+                                    showMenu = false
+                                },
+                                leadingIcon = {
+                                    if (sortKey == CoursesViewModel.SortKey.PRICE)
+                                        Icon(Icons.Default.Check, contentDescription = null)
+                                }
+                            )
+                            DropdownMenuItem(
+                                text = { Text("По рейтингу") },
+                                onClick = {
+                                    viewModel.onSortChange(CoursesViewModel.SortKey.RATE)
+                                    showMenu = false
+                                },
+                                leadingIcon = {
+                                    if (sortKey == CoursesViewModel.SortKey.RATE)
+                                        Icon(Icons.Default.Check, contentDescription = null)
+                                }
+                            )
+                        }
                     }
                 }
             )
@@ -60,9 +105,7 @@ fun MainScreen() {
                         onClick = {
                             selectedTab = tab.route
                             navController.navigate(tab.route) {
-                                popUpTo(navController.graph.startDestinationId) {
-                                    saveState = true
-                                }
+                                popUpTo(navController.graph.startDestinationId) { saveState = true }
                                 launchSingleTop = true
                                 restoreState = true
                             }
@@ -71,16 +114,21 @@ fun MainScreen() {
                 }
             }
         }
-    )
-    { padding ->
+    ) { padding ->
         NavHost(
             navController = navController,
             startDestination = "courses",
             modifier = Modifier.padding(padding)
         ) {
-            composable("courses") { CoursesScreen() }
-            composable("favorites") { FavoritesScreen() }
-            composable("account") { AccountScreen() }
+            composable("courses") { CoursesScreen(
+                viewModel = viewModel
+            ) }
+            composable("favorites") {
+                FavoritesScreen()
+            }
+            composable("account") {
+                AccountScreen()
+            }
         }
     }
 }

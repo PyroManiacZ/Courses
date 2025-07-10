@@ -60,6 +60,4 @@ dependencies {
 
     // --- Retrofit – Kotlinx Serialization Converter ---
     implementation(libs.retrofit2.kotlinx.serialization.converter)
-
-
 }

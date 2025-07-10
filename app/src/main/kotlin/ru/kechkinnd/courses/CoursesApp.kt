@@ -3,10 +3,11 @@ package ru.kechkinnd.courses
 import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import ru.kechkinnd.core.di.databaseModule
 import ru.kechkinnd.core.di.networkModule
 import ru.kechkinnd.core.di.repositoryModule
 import ru.kechkinnd.features.auth.di.authModule
-import ru.kechkinnd.features.courses.di.coursesModule
+import ru.kechkinnd.features.courses.di.featureModule
 
 class CoursesApp : Application() {
     override fun onCreate() {
@@ -17,8 +18,8 @@ class CoursesApp : Application() {
                 authModule,
                 networkModule,
                 repositoryModule,
-                coursesModule,
-                // , другие модули…
+                databaseModule,
+                featureModule,
             )
         }
     }
