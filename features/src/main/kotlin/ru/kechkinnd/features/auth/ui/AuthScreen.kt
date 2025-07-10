@@ -9,6 +9,7 @@ import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import ru.kechkinnd.features.auth.data.AuthViewModel
 
 @Composable
 fun AuthScreen(
@@ -47,7 +48,10 @@ fun AuthScreen(
         Spacer(modifier = Modifier.height(24.dp))
 
         Button(
-            onClick = { onAuthSuccess() },
+            onClick = {
+                viewModel.onLoginClick()
+                onAuthSuccess()            // навигация из MainActivity
+            },
             enabled = state.isEmailValid,
             modifier = Modifier.fillMaxWidth()
         ) {

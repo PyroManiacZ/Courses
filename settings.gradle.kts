@@ -11,6 +11,7 @@ pluginManagement {
         kotlin("plugin.serialization") version "2.2.0"
         kotlin("plugin.compose")       version "2.2.0"
         id("com.google.devtools.ksp")  version "2.2.0-2.0.2"
+        id("io.insert-koin.koin") version "4.1.0" apply false
     }
 }
 

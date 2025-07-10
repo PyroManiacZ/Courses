@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "ru.keckinnd.core"
+    namespace = "ru.kechkinnd.core"
     compileSdk = 36
 
     defaultConfig {
@@ -55,4 +55,11 @@ dependencies {
     // --- DI (Koin) ---
     implementation(libs.koin.core)
     implementation(libs.koin.android)
+
+    implementation(libs.kotlinx.serialization.json)
+
+    // --- Retrofit – Kotlinx Serialization Converter ---
+    implementation(libs.retrofit2.kotlinx.serialization.converter)
+
+
 }

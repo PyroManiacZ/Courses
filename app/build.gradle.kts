@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "ru.keckinnd.courses"
+    namespace = "ru.kechkinnd.courses"
     compileSdk   = 36
 
     defaultConfig {
@@ -72,4 +72,5 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core.v351)
     androidTestImplementation(platform(libs.androidx.compose.bom.v20230501))
     androidTestImplementation(libs.ui.test.junit4)
+
 }

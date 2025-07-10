@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    namespace = "ru.keckinnd.features"
+    namespace = "ru.kechkinnd.features"
     compileSdk = 36
 
     defaultConfig {
@@ -52,4 +52,5 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose.v353)
 }
