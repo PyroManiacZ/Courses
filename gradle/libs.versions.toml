@@ -2,6 +2,7 @@
 activityComposeVersion = "1.10.1"
 agp = "8.11.0"
 androidxJunit = "1.2.1"
+androidxMaterial3 = "1.1.0"
 coilComposeVersion = "2.4.0"
 composeBomVersion = "2025.06.01"
 converterGson = "3.0.0"
@@ -49,6 +50,7 @@ androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-
 androidx-lifecycle-runtime-ktx-v261 = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtxVersion" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtendedVersion" }
 androidx-material3 = { module = "androidx.compose.material3:material3", version.ref = "material3Version" }
+androidx-material3-v110 = { module = "androidx.compose.material3:material3", version.ref = "androidxMaterial3" }
 androidx-material3-v130 = { module = "androidx.compose.material3:material3", version.ref = "material3" }
 androidx-material3-window-size-class1 = { module = "androidx.compose.material3:material3-window-size-class", version.ref = "material3WindowSizeClassVersion" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }

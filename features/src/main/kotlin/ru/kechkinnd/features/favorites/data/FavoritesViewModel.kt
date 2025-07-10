@@ -1,4 +1,4 @@
-package ru.kechkinnd.features.favorites.ui
+package ru.kechkinnd.features.favorites.data
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

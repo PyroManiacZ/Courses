@@ -5,5 +5,5 @@ import org.koin.dsl.module
 import ru.kechkinnd.features.auth.data.AuthViewModel
 
 val authModule = module {
-    viewModel { AuthViewModel() }
+    viewModelOf(::AuthViewModel)
 }

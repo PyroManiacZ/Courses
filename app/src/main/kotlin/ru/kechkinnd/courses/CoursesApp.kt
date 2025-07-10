@@ -7,6 +7,7 @@ import ru.kechkinnd.core.di.databaseModule
 import ru.kechkinnd.core.di.networkModule
 import ru.kechkinnd.core.di.repositoryModule
 import ru.kechkinnd.features.auth.di.authModule
+import ru.kechkinnd.features.courses.di.coursesModule
 import ru.kechkinnd.features.courses.di.featureModule
 
 class CoursesApp : Application() {
@@ -20,6 +21,7 @@ class CoursesApp : Application() {
                 repositoryModule,
                 databaseModule,
                 featureModule,
+                coursesModule,
             )
         }
     }

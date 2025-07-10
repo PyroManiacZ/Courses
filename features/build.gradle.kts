@@ -56,8 +56,7 @@ dependencies {
     implementation(libs.androidx.foundation)
     implementation(libs.androidx.ui.util)
 
-    implementation(libs.androidx.material3.v130)
+    implementation(libs.androidx.material3)
     implementation(libs.androidx.material3.window.size.class1)
     implementation(libs.androidx.navigation.compose.v277)
-
 }

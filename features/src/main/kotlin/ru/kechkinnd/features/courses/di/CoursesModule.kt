@@ -1,11 +1,11 @@
 package ru.kechkinnd.features.courses.di
 
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 import ru.kechkinnd.features.courses.ui.CoursesViewModel
-import ru.kechkinnd.features.favorites.ui.FavoritesViewModel
+import ru.kechkinnd.features.favorites.data.FavoritesViewModel
 
 val coursesModule = module {
-    viewModel { CoursesViewModel(get(), get()) }
-    viewModel { FavoritesViewModel(get(), get()) }
+    viewModelOf(::CoursesViewModel)
+    viewModelOf(::FavoritesViewModel)
 }

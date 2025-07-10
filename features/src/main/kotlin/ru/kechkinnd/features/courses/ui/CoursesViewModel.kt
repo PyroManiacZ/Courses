@@ -1,5 +1,6 @@
 package ru.kechkinnd.features.courses.ui
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.*
@@ -18,6 +19,7 @@ class CoursesViewModel(
     private val coursesRepo: CoursesRepository,
     private val favRepo: FavoritesRepository
 ) : ViewModel() {
+
 
     // --- сортировка ---
     enum class SortKey { PRICE, RATE, DATE }
@@ -49,6 +51,7 @@ class CoursesViewModel(
         _searchQuery,
         _sortKey
     ) { courses, favIds, query, sortKey ->
+        Log.d("CoursesViewModel", "Combining ${courses.size} courses, favorites: ${favIds.size}, query: '$query', sort: $sortKey")
 
         // 1. лайкнутые помечаем
         val updated = courses.map { dto ->
@@ -85,9 +88,18 @@ class CoursesViewModel(
         }
     }
 
+    fun reloadCourses() {
+        viewModelScope.launch {
+            runCatching { coursesRepo.loadCourses() }
+                .onFailure { e ->
+                    Log.e("CoursesViewModel", "Reload failed: ${e.localizedMessage}")
+                }
+        }
+    }
+
+
     // --- переключение лайка ---
     fun toggleFavorite(course: CourseDto) = viewModelScope.launch {
-        if (course.hasLike) favRepo.remove(course)
-        else favRepo.add(course)
+        coursesRepo.toggleLike(course)
     }
 }

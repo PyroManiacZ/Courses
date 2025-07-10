@@ -1,5 +1,6 @@
 package ru.kechkinnd.core.repository
 
+import android.util.Log
 import kotlinx.coroutines.flow.*
 import ru.kechkinnd.core.network.api.CourseApi
 import ru.kechkinnd.core.network.model.CourseDto
@@ -8,14 +9,14 @@ class CoursesRepository(
     private val api: CourseApi,
     private val favoritesRepo: FavoritesRepository
 ) {
-    // внутренний поток всех курсов
     private val _courses = MutableStateFlow<List<CourseDto>>(emptyList())
     val coursesFlow: StateFlow<List<CourseDto>> = _courses.asStateFlow()
 
     suspend fun loadCourses() {
-        val fetched = api.getCourses().courses
+        val response = api.getCourses()
+        Log.d("CoursesRepository", "Response courses size: ${response.courses.size}")
         val favIds = favoritesRepo.getFavorites().first().map { it.id }.toSet()
-        _courses.value = fetched.map { it.copy(hasLike = it.id in favIds) }
+        _courses.value = response.courses.map { it.copy(hasLike = it.id in favIds) }
     }
 
     suspend fun toggleLike(course: CourseDto) {
@@ -33,3 +34,4 @@ class CoursesRepository(
         }
     }
 }
+

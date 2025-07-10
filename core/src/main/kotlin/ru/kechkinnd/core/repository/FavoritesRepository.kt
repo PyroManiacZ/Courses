@@ -15,8 +15,6 @@ class FavoritesRepository(private val dao: CourseDao) {
     suspend fun remove(course: CourseDto) {
         dao.delete(course.toEntity())
     }
-
-    suspend fun isFavorite(id: Int): Boolean = dao.exists(id)
 }
 
 // Расширение для маппинга
