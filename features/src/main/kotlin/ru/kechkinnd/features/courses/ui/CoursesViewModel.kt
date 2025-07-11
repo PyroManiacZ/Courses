@@ -20,8 +20,6 @@ class CoursesViewModel(
     private val favRepo: FavoritesRepository
 ) : ViewModel() {
 
-
-    // --- сортировка ---
     enum class SortKey { PRICE, RATE, DATE }
 
     private val _sortKey = MutableStateFlow(SortKey.DATE)
@@ -31,7 +29,6 @@ class CoursesViewModel(
         _sortKey.value = newKey
     }
 
-    // --- поиск ---
     private val _searchQuery = MutableStateFlow("")
     val searchQuery: StateFlow<String> = _searchQuery
 
@@ -39,7 +36,6 @@ class CoursesViewModel(
         _searchQuery.value = query
     }
 
-    // --- курсы и избранное ---
     private val coursesFlow: StateFlow<List<CourseDto>> = coursesRepo.coursesFlow
 
     private val favIdsFlow: Flow<Set<Int>> = favRepo.getFavorites()
@@ -53,16 +49,13 @@ class CoursesViewModel(
     ) { courses, favIds, query, sortKey ->
         Log.d("CoursesViewModel", "Combining ${courses.size} courses, favorites: ${favIds.size}, query: '$query', sort: $sortKey")
 
-        // 1. лайкнутые помечаем
         val updated = courses.map { dto ->
             dto.copy(hasLike = dto.id in favIds)
         }
 
-        // 2. фильтрация по поиску
         val filtered = if (query.isBlank()) updated
         else updated.filter { it.title.contains(query, ignoreCase = true) }
 
-        // 3. сортировка
         val sorted = when (sortKey) {
             SortKey.PRICE -> filtered.sortedBy {
                 it.price.filter(Char::isDigit).toIntOrNull() ?: 0
@@ -78,7 +71,6 @@ class CoursesViewModel(
         .catch { e -> emit(CoursesUiState(error = e.localizedMessage)) }
         .stateIn(viewModelScope, SharingStarted.Lazily, CoursesUiState(isLoading = true))
 
-    // --- загрузка курсов ---
     init {
         viewModelScope.launch {
             runCatching { coursesRepo.loadCourses() }
@@ -97,8 +89,6 @@ class CoursesViewModel(
         }
     }
 
-
-    // --- переключение лайка ---
     fun toggleFavorite(course: CourseDto) = viewModelScope.launch {
         coursesRepo.toggleLike(course)
     }

@@ -23,7 +23,7 @@ val networkModule = module {
 
         Retrofit.Builder()
             .baseUrl("https://drive.usercontent.google.com/")
-            .client(okHttpClient) // важно добавить клиент с логированием
+            .client(okHttpClient)
             .addConverterFactory(get<Json>().asConverterFactory(contentType))
             .build()
     }

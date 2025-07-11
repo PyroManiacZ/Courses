@@ -9,9 +9,17 @@ import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.graphics.Color
+
+val Black = Color(0xFF000000)
+val GreenAccent = Color(0xFF4CAF50)
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
+    primary = GreenAccent,
+    background = Black,
+    surface = Black,
+    onBackground = Color.White,
+    onSurface = Color.White,
     secondary = PurpleGrey80,
     tertiary = Pink80
 )

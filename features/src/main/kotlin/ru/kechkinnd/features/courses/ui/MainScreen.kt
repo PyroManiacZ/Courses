@@ -37,7 +37,7 @@ fun MainScreen() {
     )
 
     Scaffold(
-        containerColor = Color(0xFF2C2C2C),
+        containerColor = MaterialTheme.colorScheme.background,
         topBar = {
             CenterAlignedTopAppBar(
                 title = {

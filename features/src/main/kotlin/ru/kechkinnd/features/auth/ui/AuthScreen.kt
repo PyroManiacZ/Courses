@@ -102,12 +102,12 @@ fun AuthScreen(
 
         Button(
             onClick = {
-                if (state.isLoginEnabled) {  // проверяем, что email и пароль валидны
+                if (state.isLoginEnabled) {
                     viewModel.onLoginClick()
                     navigate = true
                 }
             },
-            enabled = state.isLoginEnabled,  // здесь включаем кнопку только при валидных email и пароле
+            enabled = state.isLoginEnabled,
             colors = ButtonDefaults.buttonColors(containerColor = greenColor),
             modifier = Modifier
                 .fillMaxWidth()

@@ -25,6 +25,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "Courses"
 include(":app", ":core", ":features")
-
-
-
